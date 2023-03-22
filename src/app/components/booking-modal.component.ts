@@ -64,10 +64,6 @@ export class BookingModalComponent {
     }
   }
 
-  onCustomerInputChange() {
-    // Not implemented
-  }
-
   onCustomerBackClick() {
     this.onBackClick();
   }

@@ -44,7 +44,6 @@
               id="firstName"
               name="firstName"
               [(ngModel)]="customer.firstName"
-              (ngModelChange)="onCustomerInputChange()"
               (blur)="onCustomerInputBlur('firstName')"
               required
             />
@@ -57,7 +56,6 @@
               id="lastName"
               name="lastName"
               [(ngModel)]="customer.lastName"
-              (ngModelChange)="onCustomerInputChange()"
               (blur)="onCustomerInputBlur('lastName')"
               required
             />
@@ -70,7 +68,6 @@
               id="email"
               name="email"
               [(ngModel)]="customer.email"
-              (ngModelChange)="onCustomerInputChange()"
               (blur)="onCustomerInputBlur('email')"
               required
             />
@@ -83,7 +80,6 @@
               id="phone"
               name="phone"
               [(ngModel)]="customer.phone"
-              (ngModelChange)="onCustomerInputChange()"
               (blur)="onCustomerInputBlur('phone')"
               required
             />
