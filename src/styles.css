@@ -2,3 +2,16 @@
 body {
   margin: 0 300px;
 }
+
+/* Media queries for smaller screens */
+@media (max-width: 1200px) {
+  body {
+    margin: 0 100px;
+  }
+}
+
+@media (max-width: 798px) {
+  body {
+    margin: 0;
+  }
+}
