@@ -65,19 +65,14 @@ export class BookingModalComponent {
   }
 
   onCustomerInputChange() {
-
+    // Not implemented
   }
 
-  // onCustomerBackClick(event: Event) {
   onCustomerBackClick() {
-    // event.preventDefault();
     this.onBackClick();
   }
 
-  // onCustomerNextClick(event: Event) {
   onCustomerNextClick() {
-    // event.preventDefault();
-
     const errors = this.validateCustomerForm();
     this.customerFormErrors = errors;
 
@@ -93,7 +88,6 @@ export class BookingModalComponent {
       error = { [name]: '' };
     }
 
-    // this.customerFormErrors = error;
     Object.assign(this.customerFormErrors, error);
   }
 
