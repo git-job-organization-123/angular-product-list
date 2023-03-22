@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   priceSortOrder: string = "asc";
-
-  onPriceSortOrderChange(e: any) {
-    this.priceSortOrder = e.target.value;
-  }
 }
