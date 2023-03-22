@@ -1,0 +1,151 @@
+<ng-template #stage1>
+  <div class="modal-content">
+    <h2>{{ productItem.name }}</h2>
+    <p class="description">{{ productItem.description }}</p>
+    <p class="price">{{ productItem.price }} €</p>
+  </div>
+  <div class="modal-footer">
+    <div class="stage-buttons">
+      <button (click)="onBackClick()" [disabled]="true">Back</button>
+      <button (click)="onNextClick()">Next</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #stage2>
+  <div class="modal-content"> 
+    <h2>Select extra services</h2> 
+    <ul class="services-list"> 
+      <li *ngFor="let service of productItem.services" 
+      [ngClass]="{'selected': selectedServices.includes(service)}" 
+      (click)="onServiceSelect(service)"> 
+        {{ service.name }} ({{ service.price }} €) 
+      </li> 
+    </ul> 
+  </div>
+  <div class="modal-footer">
+    <div class="stage-buttons"> 
+      <button (click)="onBackClick()">Back</button> 
+      <button (click)="onNextClick()">Next</button> 
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #stage3>
+  <div class="modal-content">
+    <div class="customer-form">
+      <form>
+        <fieldset>
+          <legend>Customer</legend>
+          <label>
+            First name *
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              [(ngModel)]="customer.firstName"
+              (ngModelChange)="onCustomerInputChange()"
+              (blur)="onCustomerInputBlur('firstName')"
+              required
+            />
+            <span class="error" *ngIf="customerFormErrors['firstName']">{{customerFormErrors['firstName']}}</span>
+          </label>
+          <label>
+            Last name *
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              [(ngModel)]="customer.lastName"
+              (ngModelChange)="onCustomerInputChange()"
+              (blur)="onCustomerInputBlur('lastName')"
+              required
+            />
+            <span class="error" *ngIf="customerFormErrors['lastName']">{{customerFormErrors['lastName']}}</span>
+          </label>
+          <label>
+            Email *
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="customer.email"
+              (ngModelChange)="onCustomerInputChange()"
+              (blur)="onCustomerInputBlur('email')"
+              required
+            />
+            <span class="error" *ngIf="customerFormErrors['email']">{{customerFormErrors['email']}}</span>
+          </label>
+          <label>
+            Phone number *
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              [(ngModel)]="customer.phone"
+              (ngModelChange)="onCustomerInputChange()"
+              (blur)="onCustomerInputBlur('phone')"
+              required
+            />
+            <span class="error" *ngIf="customerFormErrors['phone']">{{customerFormErrors['phone']}}</span>
+          </label>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="stage-buttons">
+      <button (click)="onCustomerBackClick()">Back</button>
+      <button (click)="onCustomerNextClick()">Next</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #stage4>
+  <div class="modal-content">
+    <h2>Summary</h2>
+    <p>{{productItem.name}}</p>
+    <p>Base price: {{productItem.price}} €</p>
+    <ng-container *ngIf="selectedServices.length > 0">
+      <p>Selected services:</p>
+      <ul>
+        <li *ngFor="let service of selectedServices">
+          {{service.name}} ({{service.price}} €)
+        </li>
+      </ul>
+      <p>Total extra services: {{totalExtraServicePrice}} €</p>
+    </ng-container>
+
+    <ng-container *ngIf="customer.firstName">
+      <div>
+        <h2>Customer Info</h2>
+        <p>First Name: {{customer.firstName}}</p>
+        <p>Last Name: {{customer.lastName}}</p>
+        <p>Email: {{customer.email}}</p>
+        <p>Phone: {{customer.phone}}</p>
+      </div>
+    </ng-container>
+
+    <p>Total price: {{totalPrice}} €</p>
+  </div>
+  <div class="modal-footer">
+    <div class="stage-buttons">
+      <button (click)="onBackClick()">Back</button>
+      <button (click)="onBookClick()">Book now</button>
+    </div>
+  </div>
+</ng-template>
+
+<div class="modal" (click)="onModalOutsideClick($event)">
+  <div class="modal-box" (click)="onModalBoxClick($event)">
+    <div class="modal-header">
+      <span (click)="onModalClose($event)" class="close">
+        &times;
+      </span>
+    </div>
+    <ng-container *ngIf="stage === 1; then stage1"></ng-container>
+    <ng-container *ngIf="stage === 2; then stage2"></ng-container>
+    <ng-container *ngIf="stage === 3; then stage3"></ng-container>
+    <ng-container *ngIf="stage === 4; then stage4"></ng-container>
+  </div>
+</div>

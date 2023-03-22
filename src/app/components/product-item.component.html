@@ -1,0 +1,19 @@
+<div class="box" (click)="openModal()">
+  <div class="image-row">
+    <img [src]="productItem.imageSrc" alt="Image">
+  </div>
+  <div class="title-row">
+    <h2 class="title">{{productItem.name}}</h2>
+  </div>
+  <div class="description-row">
+    <span class="description">{{productItem.description}}</span>
+  </div>
+  <div class="price-row">
+    <span class="price">{{productItem.price}} €</span>
+  </div>
+
+  <app-booking-modal *ngIf="showModal" 
+                     [productItem]="productItem"
+                     (closeModal)="closeModal()">
+  </app-booking-modal>
+</div>
