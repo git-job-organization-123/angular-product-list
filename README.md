@@ -1,3 +1,19 @@
+## Quickstart
+
+Start BookingService:
+
+`BookingService.exe`
+
+Start Angular Product List:
+
+`ng serve`
+
+Goto: http://localhost:4200/ in browser
+
+
+(UI is still crap)
+
+
 # MyApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
