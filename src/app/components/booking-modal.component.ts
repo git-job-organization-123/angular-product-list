@@ -34,18 +34,22 @@ export class BookingModalComponent {
 
   constructor(private productService: ProductService) { }
 
+  // Go to the previous stage
   onBackClick() {
     this.stage--;
   }
 
+  // Go to the next stage
   onNextClick() {
     this.stage++;
   }
 
   onModalBoxClick(e: Event) {
+    // Prevent the modal from closing when clicking inside the modal
     e.stopPropagation();
   }
 
+  // Close modal on clicking the gray area outside of the modal
   onModalOutsideClick(e: Event) {
     this.onModalClose(e);
   }
@@ -55,11 +59,15 @@ export class BookingModalComponent {
     this.closeModal.emit();
   }
 
+  // On clicking a service in stage 2
   onServiceSelect(service: ProductItem) {
     const serviceIndex = this.selectedServices.indexOf(service);
     if (serviceIndex === -1) {
+      // Select a service
       this.selectedServices.push(service);
-    } else {
+    }
+    else {
+      // De-select a service
       this.selectedServices.splice(serviceIndex, 1);
     }
   }
@@ -68,15 +76,19 @@ export class BookingModalComponent {
     this.onBackClick();
   }
 
+  // Validate customer, then go to the next stage
   onCustomerNextClick() {
     const errors = this.validateCustomerForm();
     this.customerFormErrors = errors;
 
+    // Check for any customer form errors
     if (Object.keys(errors).length === 0) {
+      // No errors, go to next stage
       this.onNextClick();
     }
   }
 
+  // Validate customer form input on losing focus to the customer form input
   onCustomerInputBlur(name: string) {
     let error = this.validateCustomerFormInput(name);
     if (!error) {
@@ -84,6 +96,7 @@ export class BookingModalComponent {
       error = { [name]: '' };
     }
 
+    // Show the customer form input error message
     Object.assign(this.customerFormErrors, error);
   }
 
@@ -122,26 +135,26 @@ export class BookingModalComponent {
     return errors;
   }
 
+  // Products to book
   getBookingProducts() {
     if (!this.productItem) {
       return null;
     }
 
-    const serviceItems = this.selectedServices.map((service) => {
+    // This product + extra services
+    return [{
+      "name": this.productItem.name,
+      "code": this.productItem.code,
+    }].concat(this.selectedServices.map((service) => {
       return {
         "name": service.name,
         "code": service.code,
       }
-    });
-
-    // Put this product first
-    return [{
-      "name": this.productItem.name,
-      "code": this.productItem.code,
-    }].concat(serviceItems);
+    }));
   }
 
   onBookClick() {
+    // Book the booking
     this.productService.book({
       "products": this.getBookingProducts(),
       "customer": this.customer
